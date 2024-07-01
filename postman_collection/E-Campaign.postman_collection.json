@@ -1,0 +1,1232 @@
+{
+	"info": {
+		"_postman_id": "395025cd-d2da-43fc-bd7e-caf1e1edede9",
+		"name": "E-Campaign",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23496507"
+	},
+	"item": [
+		{
+			"name": "step-1: get otp",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/auth/otp?phone=9900242946",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"otp"
+					],
+					"query": [
+						{
+							"key": "phone",
+							"value": "9900242946"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "step-2: verify otp and get token and partNos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{uri-test}}:8080/auth/v-otp?phone=9844481461&otp=0817&fcm=dfgvjhkh23567281gfbchjsuwy8r46t38792",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"v-otp"
+					],
+					"query": [
+						{
+							"key": "phone",
+							"value": "9844481461"
+						},
+						{
+							"key": "otp",
+							"value": "0817"
+						},
+						{
+							"key": "fcm",
+							"value": "dfgvjhkh23567281gfbchjsuwy8r46t38792"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get voters list by partnos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/vd?part_nos=96,13,39,19,14,94,64,34,6,18,2,38,32,68,76,74,58,37,9,4,30,66,99,92,46,36,11,60,82,80,69,12,97,54,10,7,15,52,5,86,1,57,24,56,17,78,35,98,3,90,89,16,63,84,71,70,72,8",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"vd"
+					],
+					"query": [
+						{
+							"key": "part_nos",
+							"value": "96,13,39,19,14,94,64,34,6,18,2,38,32,68,76,74,58,37,9,4,30,66,99,92,46,36,11,60,82,80,69,12,97,54,10,7,15,52,5,86,1,57,24,56,17,78,35,98,3,90,89,16,63,84,71,70,72,8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update voter details- phone,longitude,latitude",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"voterId\": \"XHLO326793\",\r\n        \"phoneNumber\": \"3377337733\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/voter?party_id=2&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"voter"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload voter list by excel file",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": "/C:/Users/Anand/Desktop/E-Campaign/data/Kar_157_Updated.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/upload",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "assign partnos to booth agent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"boothAgentPhoneNumber\": 8971115394,\r\n        \"partNo\": \"196\",\r\n        \"name\": \"Ashish\",\r\n        \"assemblyConstituencyNumber\": \"158\"\r\n    },\r\n    {\r\n        \"boothAgentPhoneNumber\": 9844481461,\r\n        \"partNo\": \"196\",\r\n        \"name\": \"Kishor Babu\",\r\n        \"assemblyConstituencyNumber\": \"158\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/admin-act/booth-agent?party_id=2&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"admin-act",
+						"booth-agent"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "step-n: generate refresh token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{uri-test}}:8080/auth/token?phone=7026310101",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "phone",
+							"value": "7026310101"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insert new candidate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 952,\r\n        \"candidatePhoneNumber\": \"7026310101\",\r\n        \"candidateName\": \"D K Shivakumar\",\r\n        \"partyId\": 1,\r\n        \"assemblyConstituencyNumber\": \"148\",\r\n        \"candidateImageUrl\": \"https://www.firstpost.com/wp-content/uploads/2017/08/DK-shivakumar_twitter-with_dks7.jpg\",\r\n        \"partySymbolUrl\": \"https://upload.wikimedia.org/wikipedia/commons/6/63/Indian_National_Congress_hand_logo.png\",\r\n        \"candidateManifestoUrl\": \"https://manifesto.inc.in/en/\",\r\n        \"bannerUrls\": [\r\n            \"https://www.inc.in/static/images/home/banner_30.jpg\",\r\n            \"https://pbs.twimg.com/media/EvhbsNaWYAEtES3?format=jpg&name=large\"\r\n        ],\r\n        \"newsLetterUrls\": [\r\n            \"https://zeenews.india.com/tags/dk-shivakumar.html\",\r\n            \"https://www.news18.com/topics/dk-shivakumar/\"\r\n        ],\r\n        \"urls\": {\r\n            \"youtube\": \"https://www.youtube.com/c/dkshivakumarkpcc\",\r\n            \"twitter\": \"https://twitter.com/DKShivakumar?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor\",\r\n            \"facebook\": \"https://www.facebook.com/DKShivakumar.official/\"\r\n        },\r\n        \"created_at\": \"2023-01-07T15:19:55.502+00:00\",\r\n        \"constituencyName\": \" \",\r\n        \"education\": \"Post Graduate\",\r\n        \"designation\": \"President of the Karnataka Pradesh Congress Committee\",\r\n        \"candidateWebsite\": \"http://dkshivakumar.com/\",\r\n        \"electionId\": null\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/admin-act/candidate",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"admin-act",
+						"candidate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload candidate files images etc",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "doc_type",
+							"value": "BANNER_URL",
+							"type": "text"
+						},
+						{
+							"key": "candidate-phone",
+							"value": "7026310101",
+							"type": "text"
+						},
+						{
+							"key": "doc_name",
+							"value": "Instagram",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "url",
+							"value": "https://www.instagram.com/dkshivakumar_official/?hl=en%27,%27googleplus-share-dialog",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/admin-act/upload-cd",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"admin-act",
+						"upload-cd"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "update urls by doc_name and url",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjczMjQ0ODU1LCJpYXQiOjE2NzI1NTM2NTV9.-Hh51QJr76Ad4JGUEaq6kzRi2mlxwxm1CQ7WelrLO1hTQKvpJ4vY-9b4kKcP05JukQ3TuYwsW-3pNx0l6Z5jRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doc_type",
+									"value": "OTHER",
+									"type": "text"
+								},
+								{
+									"key": "candidate-phone",
+									"value": "7026310101",
+									"type": "text"
+								},
+								{
+									"key": "doc_name",
+									"value": "Instagram",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "https://www.instagram.com/dkshivakumar_official/?hl=en%27,%27googleplus-share-dialog",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uri-local}}:8080/admin-act/upload-cd",
+							"host": [
+								"{{uri-local}}"
+							],
+							"port": "8080",
+							"path": [
+								"admin-act",
+								"upload-cd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "CANDIDATE_IMAGE",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjczMjQ0ODU1LCJpYXQiOjE2NzI1NTM2NTV9.-Hh51QJr76Ad4JGUEaq6kzRi2mlxwxm1CQ7WelrLO1hTQKvpJ4vY-9b4kKcP05JukQ3TuYwsW-3pNx0l6Z5jRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/Anand/Desktop/WhatsApp Image 2023-01-06 at 9.31.49 AM.jpeg"
+								},
+								{
+									"key": "doc_type",
+									"value": "CANDIDATE_IMAGE",
+									"type": "text"
+								},
+								{
+									"key": "candidate-phone",
+									"value": "7026310101",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uri-local}}:8080/admin-act/upload-cd",
+							"host": [
+								"{{uri-local}}"
+							],
+							"port": "8080",
+							"path": [
+								"admin-act",
+								"upload-cd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "PARTY_SYMBOL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjczMjQ0ODU1LCJpYXQiOjE2NzI1NTM2NTV9.-Hh51QJr76Ad4JGUEaq6kzRi2mlxwxm1CQ7WelrLO1hTQKvpJ4vY-9b4kKcP05JukQ3TuYwsW-3pNx0l6Z5jRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/Anand/Desktop/WhatsApp Image 2023-01-06 at 9.31.49 AM.jpeg"
+								},
+								{
+									"key": "doc_type",
+									"value": "PARTY_SYMBOL",
+									"type": "text"
+								},
+								{
+									"key": "candidate-phone",
+									"value": "7026310101",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uri-local}}:8080/admin-act/upload-cd",
+							"host": [
+								"{{uri-local}}"
+							],
+							"port": "8080",
+							"path": [
+								"admin-act",
+								"upload-cd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "CANDIDATE_MANIFESTO",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjczMjQ0ODU1LCJpYXQiOjE2NzI1NTM2NTV9.-Hh51QJr76Ad4JGUEaq6kzRi2mlxwxm1CQ7WelrLO1hTQKvpJ4vY-9b4kKcP05JukQ3TuYwsW-3pNx0l6Z5jRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/Anand/Desktop/WhatsApp Image 2023-01-06 at 9.31.49 AM.jpeg"
+								},
+								{
+									"key": "doc_type",
+									"value": "CANDIDATE_MANIFESTO",
+									"type": "text"
+								},
+								{
+									"key": "candidate-phone",
+									"value": "7026310101",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uri-local}}:8080/admin-act/upload-cd",
+							"host": [
+								"{{uri-local}}"
+							],
+							"port": "8080",
+							"path": [
+								"admin-act",
+								"upload-cd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "BANNER_URL",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjczMjQ0ODU1LCJpYXQiOjE2NzI1NTM2NTV9.-Hh51QJr76Ad4JGUEaq6kzRi2mlxwxm1CQ7WelrLO1hTQKvpJ4vY-9b4kKcP05JukQ3TuYwsW-3pNx0l6Z5jRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/Anand/Desktop/WhatsApp Image 2023-01-06 at 9.31.49 AM.jpeg"
+								},
+								{
+									"key": "doc_type",
+									"value": "BANNER_URL",
+									"type": "text"
+								},
+								{
+									"key": "candidate-phone",
+									"value": "7026310101",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uri-local}}:8080/admin-act/upload-cd",
+							"host": [
+								"{{uri-local}}"
+							],
+							"port": "8080",
+							"path": [
+								"admin-act",
+								"upload-cd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				},
+				{
+					"name": "NEWSLETTER",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjczMjQ0ODU1LCJpYXQiOjE2NzI1NTM2NTV9.-Hh51QJr76Ad4JGUEaq6kzRi2mlxwxm1CQ7WelrLO1hTQKvpJ4vY-9b4kKcP05JukQ3TuYwsW-3pNx0l6Z5jRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/Anand/Desktop/WhatsApp Image 2023-01-06 at 9.31.49 AM.jpeg"
+								},
+								{
+									"key": "doc_type",
+									"value": "NEWSLETTER",
+									"type": "text"
+								},
+								{
+									"key": "candidate-phone",
+									"value": "7026310101",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{uri-local}}:8080/admin-act/upload-cd",
+							"host": [
+								"{{uri-local}}"
+							],
+							"port": "8080",
+							"path": [
+								"admin-act",
+								"upload-cd"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "get candidate details by assembly constituency number and party id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/candidate?asc_no=148&party_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"candidate"
+					],
+					"query": [
+						{
+							"key": "asc_no",
+							"value": "148"
+						},
+						{
+							"key": "party_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Surveys",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"question\": \"Who do you intend to vote for in assembly elections 2023?\",\r\n        \"options\": [\r\n            \"BJP\",\r\n            \"Congress\",\r\n            \"JD(S)\",\r\n            \"SDPI\",\r\n            \"Other\"\r\n        ]\r\n    },\r\n    {\r\n        \"question\": \"The key issue for you as a voter is\",\r\n        \"options\": [\r\n            \"Development of the State\",\r\n            \"Social/communal issues\",\r\n            \"Farm losses\",\r\n            \"Corruption\",\r\n            \"Can’t Say\"\r\n        ]\r\n    },\r\n    {\r\n        \"question\": \"Who do you prefer as the CM of Karnataka?\",\r\n        \"options\": [\r\n            \"HD Kumaraswamy\",\r\n            \"Basavaraj Bommai\",\r\n            \"Siddaramaiah\",\r\n            \"D K Shivakumar\",\r\n            \"C M Ibrahim\",\r\n            \"Someone else\"\r\n        ]\r\n    },\r\n    {\r\n        \"question\": \"Are you satisfied with the performance of the BJP government?\",\r\n        \"options\": [\r\n            \"Yes\",\r\n            \"NO\",\r\n            \"Can’t Say\"\r\n        ]\r\n    },\r\n    {\r\n        \"question\": \"Who do you think will form the government in May 2023?\",\r\n        \"options\": [\r\n            \"BJP\",\r\n            \"Congress\",\r\n            \"JD (S)\",\r\n            \"BJP + JD (S) alliance\",\r\n            \"Congress + JD (S) alliance\"\r\n        ]\r\n    },\r\n    {\r\n        \"question\": \"Final Summary\",\r\n        \"options\": [\r\n            \"Blue\",\r\n            \"Green\",\r\n            \"Yellow\"\r\n        ]\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/survey?party_id=2&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"survey"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Survey Informations",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/survey?party_id=2&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"survey"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Survey Responses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjc2MzcwODU2LCJpYXQiOjE2NzU2Nzk2NTZ9._ypZ-G-oWUrscQhXSk2UqUeY31Vfwgn6DEY5aL0hLMH2_4eP0ntfcJTus1tp4bU7FdZ1lPI7wpq54eSirczj_w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"voterId\": \"SOH5562251\",\r\n        \"questionId\": 5,\r\n        \"answerSelected\": \"BJP\"\r\n    },\r\n    {\r\n        \"voterId\": \"SOH5562251\",\r\n        \"questionId\": 6,\r\n        \"answerSelected\": \"Green\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/survey_response?party_id=2&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"survey_response"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Survey Report By BoothAgent Phone Number",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/reports/survey?party_id=2&election_id=1&ba_phone=8971115394",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"survey"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						},
+						{
+							"key": "ba_phone",
+							"value": "8971115394",
+							"description": "Optional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Phone Number update reports",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/reports/phone_update?party_id=2&election_id=1&ba_phone=7026310101",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"phone_update"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "2"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						},
+						{
+							"key": "ba_phone",
+							"value": "7026310101",
+							"description": "optional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Old Election Reports",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "document",
+							"type": "file",
+							"src": "/C:/Users/Anand/Desktop/KOLAR_2018_MLA_ELECTION DATA_UPDATED.xlsx"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/old-report-upload",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"old-report-upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Old Election Report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/reports/old_election?party_id=1&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"reports",
+						"old_election"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Voter's voting status, survey status, color by boothAgentWise",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"voterId\": \"SOH5562252\",\r\n        \"colorCode\": \"GREEN\",\r\n        \"isVoted\": false,\r\n        \"isSurveyCompleted\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/voter_survey_data?party_id=1&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"voter_survey_data"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Voters voting, survey, color status by BoothAgentPhone",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-test}}:8080/booth-agent/voter_survey_data?party_id=1&election_id=1",
+					"host": [
+						"{{uri-test}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"voter_survey_data"
+					],
+					"query": [
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Todo List by ASC, electionid,partyid",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-local}}:8080/booth-agent/todo-list?asc_no=148&party_id=1&election_id=1",
+					"host": [
+						"{{uri-local}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"todo-list"
+					],
+					"query": [
+						{
+							"key": "asc_no",
+							"value": "148"
+						},
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert Todo List Reports",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"task\": \"Attend Voting Demo\",\r\n        \"taskDescription\": \"Attend the Demo Voting session at polling booth\",\r\n        \"taskType\": \"1-Befor the Voting\",\r\n        \"isCompleted\": true\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{uri-local}}:8080/booth-agent/todo-report?asc_no=148&party_id=1&election_id=1",
+					"host": [
+						"{{uri-local}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"todo-report"
+					],
+					"query": [
+						{
+							"key": "asc_no",
+							"value": "148"
+						},
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Todo List Report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-local}}:8080/booth-agent/todo-report?asc_no=148&party_id=1&election_id=1",
+					"host": [
+						"{{uri-local}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"todo-report"
+					],
+					"query": [
+						{
+							"key": "asc_no",
+							"value": "148"
+						},
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "War Room Details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{uri-local}}:8080/booth-agent/war-room-details?asc_no=148&party_id=1&election_id=1",
+					"host": [
+						"{{uri-local}}"
+					],
+					"port": "8080",
+					"path": [
+						"booth-agent",
+						"war-room-details"
+					],
+					"query": [
+						{
+							"key": "asc_no",
+							"value": "148"
+						},
+						{
+							"key": "party_id",
+							"value": "1"
+						},
+						{
+							"key": "election_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "uri-test",
+			"value": "3.111.180.161",
+			"type": "string"
+		},
+		{
+			"key": "uri-local",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "auth",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI3MDI2MzEwMTAxIiwiZXhwIjoxNjgwNDExODAwLCJpYXQiOjE2Nzk3MjA2MDB9.RGqwm9-65enBFVGqywNObanbcF-EOSULhXpCN1T8K9wT6LupueL_nvpszN1otWaG7tm7zPmXen0chjnZ4XHvIw",
+			"type": "string"
+		}
+	]
+}
